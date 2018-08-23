@@ -1,0 +1,32 @@
+{
+  "name": "cloudstorage",
+  "version": "1.0.0",
+  "description": "All Platform Cloud Storage",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/STAngerCat/CloudStorage.git"
+  },
+  "keywords": [
+    "cloud",
+    "sdk",
+    "storage"
+  ],
+  "author": "Maple Yin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/STAngerCat/CloudStorage/issues"
+  },
+  "homepage": "https://github.com/STAngerCat/CloudStorage#readme",
+  "devDependencies": {
+    "@types/request": "^2.47.1",
+    "@types/node": "^10.7.1"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "request": "^2.88.0"
+  }
+}
