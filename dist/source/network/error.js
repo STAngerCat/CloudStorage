@@ -1,7 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class Network {
-    request() {
-    }
+class Error {
 }
-exports.Network = Network;
+exports.Error = Error;
