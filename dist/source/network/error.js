@@ -1,5 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class Error {
+class STError {
+    constructor(err) {
+    }
 }
-exports.Error = Error;
+exports.STError = STError;

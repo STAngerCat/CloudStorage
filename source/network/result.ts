@@ -1,9 +1,15 @@
+import { STError } from "./error";
+
 export class Result {
 
     private data: Buffer
 
-    constructor(data: Buffer) {
+    readonly error?: STError
+
+
+    constructor(data?: Buffer, err?: STError) {
         this.data = data
+        this.error = err
     }
 
     json() {

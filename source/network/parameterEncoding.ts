@@ -46,10 +46,10 @@ export function URLEncoding(parameters: Parameters): Buffer {
         }
     }
 
-    return new Buffer(parametersArray.join('&'))
+    return Buffer.from(parametersArray.join('&'))
 }
 
 export function JSONEncoding(parameters: Parameters): Buffer {
     let jsonString = JSON.stringify(parameters)
-    return new Buffer(jsonString)
+    return Buffer.from(jsonString)
 }

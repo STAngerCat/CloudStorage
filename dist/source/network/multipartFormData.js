@@ -62,7 +62,7 @@ class MultipartFormData {
     }
     appendString(data, name) {
         let headers = this.contentHeaders(name);
-        let buffer = new Buffer(data);
+        let buffer = Buffer.from(data);
         let bodyPary = new BodyPart(headers, buffer, buffer.byteLength);
         this.bodyParts.push(bodyPary);
     }
@@ -102,16 +102,16 @@ class MultipartFormData {
             headerText += `${key}: ${value}${crlf}`;
         }
         headerText += crlf;
-        return new Buffer(headerText);
+        return Buffer.from(headerText);
     }
     initialBoundaryBuffer() {
-        return new Buffer(BoundaryGenerator.boundaryString(BoundaryType.initial, this.boundary));
+        return Buffer.from(BoundaryGenerator.boundaryString(BoundaryType.initial, this.boundary));
     }
     encapsulatedBoundaryBuffer() {
-        return new Buffer(BoundaryGenerator.boundaryString(BoundaryType.encapsulated, this.boundary));
+        return Buffer.from(BoundaryGenerator.boundaryString(BoundaryType.encapsulated, this.boundary));
     }
     finalBoundaryBuffer() {
-        return new Buffer(BoundaryGenerator.boundaryString(BoundaryType.final, this.boundary));
+        return Buffer.from(BoundaryGenerator.boundaryString(BoundaryType.final, this.boundary));
     }
 }
 exports.MultipartFormData = MultipartFormData;

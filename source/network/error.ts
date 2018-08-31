@@ -1,2 +1,6 @@
-export class Error {
+
+export class STError {
+    constructor(err: Error) {
+        
+    }
 }

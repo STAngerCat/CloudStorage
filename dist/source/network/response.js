@@ -1,31 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const result_1 = require("./result");
+const error_1 = require("./error");
 class Response {
-    constructor(err, req, res) {
+    constructor(err, req, res, result) {
         this.request = req;
         if (err) {
-            this.error = err;
+            this.error = new error_1.STError(err);
         }
         else {
             this.headers = res.headers;
-            this.incomingMessage = res;
         }
-    }
-    result() {
-        return new Promise((resolve, rejcet) => {
-            let data = Buffer.alloc(0);
-            this.incomingMessage.on('data', (chunck) => {
-                data = Buffer.concat([data, chunck], data.length + chunck.length);
-            });
-            this.incomingMessage.on('end', () => {
-                let result = new result_1.Result(data);
-                resolve(result);
-            });
-            this.incomingMessage.on('error', (err) => {
-                rejcet(err);
-            });
-        });
+        this.code = res.statusCode;
+        this.message = res.statusMessage;
+        this.httpVersion = res.httpVersion;
+        this.result = result;
     }
 }
 exports.Response = Response;

@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Result {
-    constructor(data) {
+    constructor(data, err) {
         this.data = data;
+        this.error = err;
     }
     json() {
         let resultString = this.data.toString('utf-8');

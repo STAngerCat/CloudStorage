@@ -1,4 +1,4 @@
-export enum EErrorCode {
+export enum ErrorCode {
     /**
      * 部分操作执行成功
      */
@@ -102,11 +102,11 @@ export enum EErrorCode {
     ResumeUpload = 701
 }
 
-export interface IError {
+export interface Error {
     /**
      * 返回的错误码，用来定位错误场景。
      */
-    code: EErrorCode;
+    code: ErrorCode;
     /**
      * 包含详细的错误信息
      */

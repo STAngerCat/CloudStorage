@@ -87,7 +87,7 @@ export class MultipartFormData {
 
 	appendString(data: string, name: string) {
 		let headers = this.contentHeaders(name)
-		let buffer = new Buffer(data)
+		let buffer = Buffer.from(data)
 		let bodyPary = new BodyPart(headers, buffer, buffer.byteLength)
 		this.bodyParts.push(bodyPary)
 	}
@@ -142,20 +142,20 @@ export class MultipartFormData {
 
 		headerText += crlf
 
-		return new Buffer(headerText)
+		return Buffer.from(headerText)
 	}
 
 
 
 	private initialBoundaryBuffer(): Buffer {
-		return new Buffer(BoundaryGenerator.boundaryString(BoundaryType.initial, this.boundary))
+		return Buffer.from(BoundaryGenerator.boundaryString(BoundaryType.initial, this.boundary))
 	}
 
 	private encapsulatedBoundaryBuffer(): Buffer {
-		return new Buffer(BoundaryGenerator.boundaryString(BoundaryType.encapsulated, this.boundary))
+		return Buffer.from(BoundaryGenerator.boundaryString(BoundaryType.encapsulated, this.boundary))
 	}
 
 	private finalBoundaryBuffer(): Buffer {
-		return new Buffer(BoundaryGenerator.boundaryString(BoundaryType.final, this.boundary))
+		return Buffer.from(BoundaryGenerator.boundaryString(BoundaryType.final, this.boundary))
 	}
 }

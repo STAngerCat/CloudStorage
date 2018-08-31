@@ -47,11 +47,11 @@ function URLEncoding(parameters) {
             parametersArray.push(`${key}=${value}`);
         }
     }
-    return new Buffer(parametersArray.join('&'));
+    return Buffer.from(parametersArray.join('&'));
 }
 exports.URLEncoding = URLEncoding;
 function JSONEncoding(parameters) {
     let jsonString = JSON.stringify(parameters);
-    return new Buffer(jsonString);
+    return Buffer.from(jsonString);
 }
 exports.JSONEncoding = JSONEncoding;

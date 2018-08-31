@@ -1,4 +1,7 @@
 "use strict";
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
 const http = require("http");
 const fs = require("fs");
@@ -6,6 +9,9 @@ const path = require("path");
 const request_1 = require("./request");
 const response_1 = require("./response");
 const defined_1 = require("./defined");
+__export(require("./defined"));
+const error_1 = require("./error");
+const result_1 = require("./result");
 let converRequest = (req) => {
     return {
         hostname: req.url.hostname,
@@ -18,8 +24,20 @@ let converRequest = (req) => {
 let createClientRequest = (request, then) => {
     let option = converRequest(request);
     let clientRequest = http.request(option, (res) => {
-        let response = new response_1.Response(null, request, res);
-        then(response);
+        let data = Buffer.alloc(0);
+        res.on('data', (chunck) => {
+            data = Buffer.concat([data, chunck], data.length + chunck.length);
+        });
+        res.on('end', () => {
+            let result = new result_1.Result(data);
+            let response = new response_1.Response(null, request, res, result);
+            then(response);
+        });
+        res.on('error', (err) => {
+            let result = new result_1.Result(null, new error_1.STError(err));
+            let response = new response_1.Response(null, request, res, result);
+            then(response);
+        });
     });
     clientRequest.on('error', (err) => {
         let response = new response_1.Response(err, request, null);
@@ -67,15 +85,3 @@ function upload(filePath, fileKey, url, method = defined_1.Method.POST, paramete
     });
 }
 exports.upload = upload;
-/**
-formData = "multipart/form-data",
-    urlencoded = "application/x-www-form-urlencoded",
-    json = "application/json"
- */
-let a = request("http://localhost:3000/post", defined_1.Method.POST, {
-    test1: "text2",
-    test2: "text3",
-    test3: "text5",
-}, {
-    "Content-Type": "multipart/form-data"
-});

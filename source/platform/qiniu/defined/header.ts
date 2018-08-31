@@ -1,7 +1,7 @@
 /**
  * 公共头部
  */
-export interface IHeader {
+export interface Header {
     /**
      * 用于验证请求合法性的认证信息。该头部应严格按照管理凭证或上传凭证格式进行填充，否则会返回 401 错误码。例如Authorization: QBox j853F3bLkWl59I5BOkWm6q1Z1 ...或Authorization: UpToken QNJi_bYJlmO5LeY08FfoNj9w_r...。
      */

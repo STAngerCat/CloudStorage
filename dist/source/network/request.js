@@ -6,6 +6,7 @@ const parameterEncoding_1 = require("./parameterEncoding");
 class Request {
     constructor(url, method = defined_1.Method.GET, headers) {
         this.method = defined_1.Method.GET;
+        this.timeout = 30;
         if (typeof url === "string") {
             this.url = new URL(url);
         }
@@ -14,10 +15,12 @@ class Request {
         }
         this.method = method;
         this.headers = headers;
-        
         if (method == defined_1.Method.POST && headers['Content-Type'] == "multipart/form-data") {
             this.multipartFormData = new multipartFormData_1.MultipartFormData();
-            this.headers['Content-Tpye'] = this.multipartFormData.contentType;
+            this.headers['Content-Type'] = this.multipartFormData.contentType;
+        }
+        if (!headers['Content-Type']) {
+            headers['Content-Type'] = "application/x-www-form-urlencoded";
         }
     }
     get data() {

@@ -5,6 +5,9 @@ import path = require("path")
 import { Request, UploadRequest } from "./request";
 import { Response } from "./response";
 import { Method, Parameters, Headers } from "./defined";
+export * from  "./defined";
+import { STError } from "./error";
+import { Result } from "./result";
 
 
 let converRequest = (req: Request): http.RequestOptions => {
@@ -20,8 +23,21 @@ let converRequest = (req: Request): http.RequestOptions => {
 let createClientRequest = (request: Request, then:(response: Response)=>void): http.ClientRequest => {
     let option = converRequest(request)
     let clientRequest = http.request(option, (res) => {
-        let response = new Response(null, request, res)
-        then(response)
+        let data: Buffer = Buffer.alloc(0)
+        res.on('data', (chunck: Buffer) => {
+            data = Buffer.concat([data, chunck], data.length + chunck.length)
+        })
+        res.on('end', () => {
+            let result = new Result(data)
+            let response = new Response(null, request, res, result)
+            then(response)
+        })
+        res.on('error', (err) => {
+            let result = new Result(null, new STError(err))
+            let response = new Response(null, request, res, result)
+            then(response)
+        })
+        
     })
 
     clientRequest.on('error', (err) => {
@@ -80,16 +96,3 @@ export function upload(filePath: string,
         })
     })
 }
-
-/**
-formData = "multipart/form-data",
-    urlencoded = "application/x-www-form-urlencoded",
-    json = "application/json"
- */
-
-let a = request("http://localhost:3000/post", Method.POST, {
-    test1: "text2"
-}, {
-    "Content-Type": "multipart/form-data"
-})
-

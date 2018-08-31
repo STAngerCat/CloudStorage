@@ -10,6 +10,8 @@ export class Request {
 	readonly headers: Headers
 	readonly multipartFormData: MultipartFormData
 
+	timeout: number = 30
+
 	private _data: Parameters
 
 	get data(): Buffer {
@@ -26,12 +28,12 @@ export class Request {
 		this.method = method
 		this.headers = headers
 
-		console.log(method);
-		console.log(headers);
-
-		if (method == Method.POST && headers['Content-Tpye'] == "multipart/form-data") {
+		if (method == Method.POST && headers['Content-Type'] == "multipart/form-data") {
 			this.multipartFormData = new MultipartFormData()
-			this.headers['Content-Tpye'] = this.multipartFormData.contentType
+			this.headers['Content-Type'] = this.multipartFormData.contentType
+		}
+		if (!headers['Content-Type']) {
+			headers['Content-Type'] = "application/x-www-form-urlencoded"
 		}
 	}
 

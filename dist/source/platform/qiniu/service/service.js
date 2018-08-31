@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+// import { manageCredentials } from "../security/credentials";
 // import { Host, Path, Body } from "../../../request/decorator";
 const bucket_1 = require("./bucket");
 class Service {
