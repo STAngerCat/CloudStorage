@@ -47,7 +47,7 @@ let createClientRequest = (request: Request, then:(response: Response)=>void): h
     return clientRequest
 }
 
-export function request(url: string, 
+export function request(url: URL, 
     method: Method = Method.GET, 
     parameters?: Parameters, 
     headers?: Headers) {
@@ -73,7 +73,7 @@ export function request(url: string,
 
 export function upload(filePath: string, 
     fileKey: string, 
-    url: string, 
+    url: URL, 
     method: Method = Method.POST, 
     parameters: Parameters, 
     headers: Headers = {}) {

@@ -14,10 +14,6 @@ export class Item extends Base {
             console.log(response.result.json())
         })
     }
-
-    upload() {
-        
-    }
 }
 
 let nb = new Item("pKqdGJdw6XHe5ys8HI6tgB3cPdH9UONyyyuM6p-K", "BUfCgFGUuYhhyw1gUwXZo9mfT2yruzBoZyzIhWbk")

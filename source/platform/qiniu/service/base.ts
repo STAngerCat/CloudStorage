@@ -16,21 +16,19 @@ export class Base {
         this.credentials = new Credentials(accessKey, secretKey)
     }
     
-    protected get(urlString: string, parameters?: Parameters, headers: Headers = {}) {
-        let url = new URL(urlString)
+    protected get(url: URL, parameters?: Parameters, headers: Headers = {}) {
         let accessToken = this.credentials.manageCredentials(url.pathname + url.search)
         headers = Object.assign(headers, {
             "Authorization": `QBox ${accessToken}` 
         })
-        return request(urlString, Method.GET, parameters, headers)
+        return request(url, Method.GET, parameters, headers)
     }
 
-    protected post(urlString: string, parameters?: Parameters, headers: Headers = {}) {
-        let url = new URL(urlString)
+    protected post(url: URL, parameters?: Parameters, headers: Headers = {}) {
         let accessToken = this.credentials.manageCredentials(url.pathname + url.search, URLEncoding(parameters).toString('utf-8'))
         headers = Object.assign(headers, {
             "Authorization": `QBox ${accessToken}`
         })
-        return request(urlString, Method.POST, parameters, headers)
+        return request(url, Method.POST, parameters, headers)
     }
 }
